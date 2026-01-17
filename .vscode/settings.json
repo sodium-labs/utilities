@@ -1,0 +1,28 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "npm.packageManager": "pnpm",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always"
+    },
+    "files.insertFinalNewline": true,
+    "files.eol": "\n",
+    "files.associations": {
+        "api-extractor.json": "jsonc",
+        "tsconfig.json": "jsonc"
+    },
+    "search.exclude": {
+        "**/.next": true,
+        "**/dist": true
+    },
+    "[json]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "oxc.oxc-vscode"
+    }
+}
