@@ -22,10 +22,13 @@ export const MaximumIncrement = 0b111111111111n;
 /**
  * A class for generating and deconstructing snowflakes.
  *
+ *
  * A {@link https://en.wikipedia.org/wiki/Snowflake_ID | snowflake}
  * is a 64-bit unsigned integer with 4 fields that have a fixed epoch value.
  *
+ *
  * If we have a snowflake `266241948824764416` we can represent it as binary:
+ *
  * ```
  * 64                                          22     17     12          0
  *  000000111011000111100001101001000101000000  00001  00000  000000000000
