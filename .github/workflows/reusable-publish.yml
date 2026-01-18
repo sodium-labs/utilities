@@ -66,5 +66,17 @@ jobs:
             - name: Tag release
               working-directory: ${{ inputs.working-directory }}
               run: |
-                  git tag "${{ inputs.package-full-name }}@${{ steps.pkg.outputs.version }}" || echo "Tag already exists"
-                  git push --tags
+                  TAG="${{ inputs.package-full-name }}@${{ steps.pkg.outputs.version }}"
+                  git tag "$TAG" || echo "Tag already exists"
+                  git push origin "$TAG" || echo "Tag already exists"
+
+            - name: Create GitHub Release
+              run: |
+                  TAG="${{ inputs.package-full-name }}@${{ steps.pkg.outputs.version }}"
+                  gh release create "$TAG" \
+                    --generate-notes \
+                    --title "$TAG" \
+                    --draft=false \
+                    --prerelease=false
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
