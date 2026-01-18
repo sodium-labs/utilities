@@ -38,7 +38,10 @@ jobs:
                   cache: "pnpm"
 
             - name: Install dependencies
-              run: pnpm install --filter=${{ inputs.package-name }} --frozen-lockfile
+              run: pnpm install --frozen-lockfile
+
+            - name: Build packages
+              run: pnpm build
 
             - name: Generate docs
               working-directory: ${{ inputs.working-directory }}
