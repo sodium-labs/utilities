@@ -3,9 +3,6 @@
     "npm.packageManager": "pnpm",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "oxc.oxc-vscode",
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "always"
-    },
     "files.insertFinalNewline": true,
     "files.eol": "\n",
     "files.associations": {
