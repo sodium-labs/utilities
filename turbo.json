@@ -1,0 +1,25 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
+        },
+        "lint": {
+            "dependsOn": ["^lint"],
+            "outputs": []
+        },
+        "fmt": {
+            "dependsOn": ["^lint"],
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["^test"],
+            "outputs": []
+        },
+        "docs": {
+            "dependsOn": ["^docs"],
+            "outputs": ["dist-docs/**"]
+        }
+    }
+}
