@@ -3,6 +3,12 @@ name: Reusable Publish (npm)
 on:
     workflow_call:
         inputs:
+            package-name:
+                required: true
+                type: string
+            package-full-name:
+                required: true
+                type: string
             working-directory:
                 required: true
                 type: string
@@ -27,14 +33,20 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
             - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: ${{ inputs.node-version }}
                   registry-url: https://registry.npmjs.org
+                  cache: "pnpm"
 
             - name: Install dependencies
-              run: npm ci
+              run: pnpm install --filter=${{ inputs.package-name }} --frozen-lockfile
 
             - name: Build
               working-directory: ${{ inputs.working-directory }}
@@ -44,10 +56,7 @@ jobs:
               id: pkg
               working-directory: ${{ inputs.working-directory }}
               run: |
-                  NAME=$(node -p "require('./package.json').name")
                   VERSION=$(node -p "require('./package.json').version")
-
-                  echo "name=$NAME" >> $GITHUB_OUTPUT
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: Publish to npm
@@ -59,5 +68,5 @@ jobs:
             - name: Tag release
               working-directory: ${{ inputs.working-directory }}
               run: |
-                  git tag "${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" || echo "Tag already exists"
+                  git tag "${{ inputs.package-full-name }}@${{ steps.pkg.outputs.version }}" || echo "Tag already exists"
                   git push --tags

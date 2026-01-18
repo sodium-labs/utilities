@@ -3,6 +3,12 @@ name: Reusable Publish Docs
 on:
     workflow_call:
         inputs:
+            package-name:
+                required: true
+                type: string
+            package-full-name:
+                required: true
+                type: string
             working-directory:
                 required: true
                 type: string
@@ -22,13 +28,19 @@ jobs:
             - name: Checkout source repo
               uses: actions/checkout@v6
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+
             - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: ${{ inputs.node-version }}
+                  cache: "pnpm"
 
             - name: Install dependencies
-              run: npm ci
+              run: pnpm install --filter=${{ inputs.package-name }} --frozen-lockfile
 
             - name: Generate docs
               working-directory: ${{ inputs.working-directory }}
@@ -38,12 +50,7 @@ jobs:
               id: pkg
               working-directory: ${{ inputs.working-directory }}
               run: |
-                  NAME=$(node -p "require('./package.json').name")
                   VERSION=$(node -p "require('./package.json').version")
-
-                  NAME=${NAME#@sodiumlabs/}
-
-                  echo "name=$NAME" >> $GITHUB_OUTPUT
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: Checkout artifacts repo
@@ -56,7 +63,7 @@ jobs:
 
             - name: Copy docs
               run: |
-                  TARGET="artifacts/docs/packages/${{ steps.pkg.outputs.name }}/${{ steps.pkg.outputs.version }}"
+                  TARGET="artifacts/docs/packages/${{ inputs.package-name }}/${{ steps.pkg.outputs.version }}"
                   mkdir -p "$TARGET"
 
                   cp "${{ inputs.working-directory }}/README.md" "$TARGET/"
@@ -68,5 +75,5 @@ jobs:
                   git config --local user.name "github-actions[bot]"
                   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
                   git add .
-                  git commit -m "docs: ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" || exit 0
+                  git commit -m "docs: ${{ inputs.package-full-name }}@${{ steps.pkg.outputs.version }}" || exit 0
                   git push
