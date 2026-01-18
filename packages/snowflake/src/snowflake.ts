@@ -22,10 +22,8 @@ export const MaximumIncrement = 0b111111111111n;
 /**
  * A class for generating and deconstructing snowflakes.
  *
- *
  * A {@link https://en.wikipedia.org/wiki/Snowflake_ID | snowflake}
  * is a 64-bit unsigned integer with 4 fields that have a fixed epoch value.
- *
  *
  * If we have a snowflake `266241948824764416` we can represent it as binary:
  *
@@ -191,14 +189,18 @@ export class Snowflake {
      * Returns a number indicating whether a reference snowflake comes before,
      * or after, or is same as the given snowflake in sort order.
      *
-     * @example Sort snowflakes in ascending order
+     * @example
+     * Sort snowflakes in ascending order
+     *
      * ```typescript
      * const ids = ['737141877803057244', '1056191128120082432', '254360814063058944'];
      * console.log(ids.sort((a, b) => Snowflake.compare(a, b)));
      * // → ['254360814063058944', '737141877803057244', '1056191128120082432'];
      * ```
      *
-     * @example Sort snowflakes in descending order
+     * @example
+     * Sort snowflakes in descending order
+     *
      * ```typescript
      * const ids = ['737141877803057244', '1056191128120082432', '254360814063058944'];
      * console.log(ids.sort((a, b) => -Snowflake.compare(a, b)));
