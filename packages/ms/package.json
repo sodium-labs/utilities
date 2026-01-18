@@ -1,0 +1,64 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "name": "@sodiumlabs/ms",
+    "version": "1.0.0",
+    "description": "Utility to convert various time formats to milliseconds",
+    "keywords": [
+        "enhanced",
+        "localized",
+        "ms",
+        "parse",
+        "sodium",
+        "sodiumlabs",
+        "time",
+        "typescript"
+    ],
+    "homepage": "https://github.com/sodium-labs/utilities/tree/main/packages/ms",
+    "bugs": {
+        "url": "https://github.com/sodium-labs/utilities/issues"
+    },
+    "license": "MIT",
+    "author": "sodiumlabs",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sodium-labs/utilities.git",
+        "directory": "packages/ms"
+    },
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            },
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            }
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "build:docs": "tsc -p tsconfig.docs.json",
+        "lint": "tsc --noEmit && oxlint && oxfmt --check",
+        "fmt": "oxfmt",
+        "test": "vitest run",
+        "docs": "npm run build:docs && api-extractor run --local"
+    },
+    "dependencies": {
+        "@sodiumlabs/duration": "workspace:^"
+    },
+    "devDependencies": {
+        "@microsoft/api-extractor": "^7.55.2",
+        "tsup": "^8.5.1",
+        "typescript": "^5.9.3"
+    },
+    "engines": {
+        "node": ">=18"
+    }
+}

@@ -8,5 +8,5 @@
     "tabWidth": 4,
     "useTabs": false,
     "proseWrap": "never",
-    "ignorePatterns": ["node_modules", ".turbo", "dist", "dist-docs", "package-lock.json"]
+    "ignorePatterns": ["node_modules", ".turbo", "dist", "dist-docs", "package-lock.json", "ms/README.md"]
 }
