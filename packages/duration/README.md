@@ -4,7 +4,7 @@
         <a href="https://discord.gg/8PDXWSHH7k"><img src="https://img.shields.io/badge/join_us-on_discord-5865F2?logo=discord&logoColor=white" alt="Discord server" /></a>
         <a href="https://www.npmjs.com/package/@sodiumlabs/duration"><img src="https://img.shields.io/npm/v/@sodiumlabs/duration.svg?maxAge=3600" alt="npm version" /></a>
         <a href="https://www.npmjs.com/package/@sodiumlabs/duration"><img src="https://img.shields.io/npm/dt/@sodiumlabs/duration.svg?maxAge=3600" alt="npm downloads" /></a>
-        <a href="https://github.com/sodium-labs/duration/commits/main"><img alt="Last commit" src="https://img.shields.io/github/last-commit/sodium-labs/duration?logo=github&logoColor=ffffff" /></a>
+        <a href="https://github.com/sodium-labs/utilities/commits/main/packages/duration"><img alt="Last commit" src="https://img.shields.io/github/last-commit/sodium-labs/utilities?logo=github&logoColor=ffffff&path=packages%2Fduration" /></a>
     </p>
 </div>
 
