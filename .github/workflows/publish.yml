@@ -1,0 +1,45 @@
+name: Publish Package
+run-name: Publish ${{ inputs.package }}
+
+on:
+    workflow_dispatch:
+        inputs:
+            package:
+                description: Package to publish
+                required: true
+                type: choice
+                options:
+                    - duration
+                    - ms
+                    - snowflake
+            publish-package:
+                description: Publish the package and the tag
+                required: false
+                default: true
+                type: boolean
+            publish-docs:
+                description: Publish the docs
+                required: false
+                default: true
+                type: boolean
+
+jobs:
+    publish-package:
+        name: Publish ${{ inputs.package }}
+        uses: ./.github/workflows/reusable-publish.yml
+        if: ${{ inputs.publish-package }}
+        with:
+            package: ${{ inputs.package }}
+            working-directory: packages/${{ inputs.package }}
+        secrets:
+            NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    publish-docs:
+        name: Publish docs for ${{ inputs.package }}
+        uses: ./.github/workflows/reusable-publish-docs.yml
+        if: ${{ inputs.publish-docs }}
+        with:
+            package: ${{ inputs.package }}
+            working-directory: packages/${{ inputs.package }}
+        secrets:
+            ARTIFACTS_TOKEN: ${{ secrets.ARTIFACTS_TOKEN }}

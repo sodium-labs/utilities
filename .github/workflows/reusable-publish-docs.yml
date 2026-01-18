@@ -1,0 +1,72 @@
+name: Reusable Publish Docs
+
+on:
+    workflow_call:
+        inputs:
+            working-directory:
+                required: true
+                type: string
+            node-version:
+                required: false
+                type: number
+                default: 24
+        secrets:
+            ARTIFACTS_TOKEN:
+                required: true
+
+jobs:
+    publish-docs:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout source repo
+              uses: actions/checkout@v6
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ inputs.node-version }}
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Generate docs
+              working-directory: ${{ inputs.working-directory }}
+              run: npm run docs
+
+            - name: Read package info
+              id: pkg
+              working-directory: ${{ inputs.working-directory }}
+              run: |
+                  NAME=$(node -p "require('./package.json').name")
+                  VERSION=$(node -p "require('./package.json').version")
+
+                  NAME=${NAME#@sodiumlabs/}
+
+                  echo "name=$NAME" >> $GITHUB_OUTPUT
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+            - name: Checkout artifacts repo
+              uses: actions/checkout@v6
+              with:
+                  repository: sodium-labs/artifacts
+                  ref: main
+                  token: ${{ secrets.ARTIFACTS_TOKEN }}
+                  path: artifacts
+
+            - name: Copy docs
+              run: |
+                  TARGET="artifacts/docs/packages/${{ steps.pkg.outputs.name }}/${{ steps.pkg.outputs.version }}"
+                  mkdir -p "$TARGET"
+
+                  cp "${{ inputs.working-directory }}/README.md" "$TARGET/"
+                  cp "${{ inputs.working-directory }}/dist-docs/docs.api.json" "$TARGET/"
+
+            - name: Commit and push docs
+              run: |
+                  cd artifacts
+                  git config --local user.name "github-actions[bot]"
+                  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add .
+                  git commit -m "docs: ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" || exit 0
+                  git push
