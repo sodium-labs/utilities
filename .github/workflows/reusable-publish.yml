@@ -58,8 +58,7 @@ jobs:
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: Publish to npm
-              working-directory: ${{ inputs.working-directory }}
-              run: npm publish --provenance --access public || echo "Already published"
+              run: pnpm publish --filter=${{ inputs.package-name }} --provenance --access public || echo "Already published"
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
