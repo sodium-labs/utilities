@@ -1,6 +1,10 @@
 import { locales } from "./locales";
 import { Unit, unitValues } from "./units";
 
+export type { Unit };
+export * from "./locales";
+export { units } from "./units";
+
 /**
  * The options.
  */
@@ -13,12 +17,20 @@ export interface Options {
      * The locale. Defaults to `en`.
      */
     locale?: string;
+    /**
+     * Format the duration with multiple units, e.g. `2m50s100ms` instead of `2m`.
+     */
     compound?: boolean;
+    /**
+     * The max amount of units used in the compound format.
+     */
     maxUnits?: number;
 }
 
 /**
  * Parse or format the given value.
+ *
+ * **Note:** returns `NaN` if `value` was a string and could not be parsed.
  *
  * @param value - The string or number to convert
  * @param options - Options for the conversion
