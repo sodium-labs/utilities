@@ -12,6 +12,7 @@ on:
                     - duration
                     - ms
                     - snowflake
+                    - cache
             publish-package:
                 description: Publish the package and the tag
                 required: false
