@@ -1,6 +1,6 @@
 {
     "extends": "../../api-extractor.json",
     "docModel": {
-        "projectFolderUrl": "https://github.com/sodiumlabs/utilities/tree/main/packages/ms"
+        "projectFolderUrl": "https://github.com/sodium-labs/utilities"
     }
 }
