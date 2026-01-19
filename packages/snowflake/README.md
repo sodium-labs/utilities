@@ -69,6 +69,6 @@ const data = discordSnowflake.deconstruct("716068012414730320");
 
 Need help with the module? Ask on our [support server!](https://discord.gg/8PDXWSHH7k)
 
-# Credits
+## Credits
 
 This project also partially contains code derived or copied from [@sapphire/snowflake](https://github.com/sapphiredev/utilities/tree/main/packages/snowflake).
