@@ -27,4 +27,4 @@ Useful TypeScript utilities built to power our own projects, and yours too. We p
 
 ## Help
 
-Need help with the module? Ask on our [support server!](https://discord.gg/8PDXWSHH7k)
+Need help with the modules? Ask on our [support server!](https://discord.gg/8PDXWSHH7k)
