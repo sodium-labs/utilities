@@ -32,7 +32,7 @@ export class ValueCache<T> {
     private _timer: NodeJS.Timeout | null;
     private _expiresAt: number | null;
 
-    public constructor(options: ValueCacheOptions) {
+    public constructor(options?: ValueCacheOptions) {
         this.options = Object.assign({ ttl: 0 }, options);
         this._timer = null;
         this._expiresAt = null;
